@@ -9,6 +9,7 @@
 using namespace std;
 
 void encrypt(int x, Reflector& rf, Rotor* rot, Plugboard *pb, int rotc);
+void printchar(int x);
 
 int main(int argc, char **argv)
 {
@@ -24,6 +25,8 @@ int main(int argc, char **argv)
           int input = (int) c - 'A';
           if(input<0 || input>25){ exit(1); }
           encrypt(input, rf, rotors, pb, rotcount);
+          int i = 0;
+          while(i<rotcount&&rotors[i].rotate()){ i++; }
       }
       cout << "\n";
   }
@@ -37,11 +40,12 @@ void encrypt(int x, Reflector& rf, Rotor* rot, Plugboard *pb, int rotc){
   out = rf.reflect(out);
   for(int i=rotc-1; i>=0; i--){
       out = rot[i].inv_get(out);
-      rot[i].rotate();
   }
   out = pb->get(out);
-  char output = 'A' + out;
-  cout << output;
+  printchar(out);
 }
 
-
+void printchar(int x){
+  char output = 'A' + x;
+  cout << output;
+}
