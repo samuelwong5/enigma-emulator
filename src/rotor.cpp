@@ -5,20 +5,22 @@
 #include "rotor.h"
 using namespace std;
 
-Rotor::Rotor(string f)
+Rotor::Rotor(){
+
+}
+
+void Rotor::init(string f)
 {
-	string s, hold;
+    string s;
 	ifstream input(f.c_str());
+    map = new int[26];
 	if (input.is_open()){
-		getline(input, s);
+        for (int i = 0; i < 26; i++){
+            getline(input, s, ' ');
+            map[i] = atoi(s.c_str());
+        }
 	}
 	input.close();
-	istringstream iss(s);
-	map = new int[26];
-	for (int i = 0; i < 26; i++){
-		getline(iss, hold, ' ');
-		map[i] = atoi(hold.c_str());
-	}
 	generateInverse();
 }
 

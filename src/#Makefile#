@@ -1,0 +1,8 @@
+CC = g++
+CFLAGS = -Wall -g
+
+all: reflector.o rotor.o plugboard.o
+
+reflector.o: reflector.cpp reflector.h
+	${CC} ${CFLAGS} -c reflector.cpp
+void encrypt(int x, Reflector& rf, Rotor* rot, Plugboard& pb, int rotc)

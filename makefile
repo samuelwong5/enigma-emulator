@@ -1,21 +1,14 @@
 # edit this makefile so that running make compiles your enigma program
 CC = g++
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -std=c++11
 
-src/reflector.o: src/reflector.cpp src/reflector.h
-	${CC} ${CFLAGS} -c src/reflector.cpp
+all: enigma
 
-src/rotor.o: src/rotor.cpp src/rotor.h
-	${CC} ${CFLAGS} -c src/rotor.cpp
+Main.o: Main.cpp src/reflector.h src/rotor.h src/plugboard.h
+	${CC} ${CFLAGS} -c Main.cpp
 
-src/plugboard.o: src/plugboard.cpp src/plugboard.h
-	${CC} ${CFLAGS} -c src/plugboard.cpp
-
-Main.o: src/Main.cpp src/reflector.h src/rotor.h src/plugboard.h
-	${CC} ${CFLAGS} -c main.cpp
-
-enigma: Main.o reflector.o rotor.o plugboard.o
-	${CC} -g Main.o reflector.o rotor.o plugboard.o -o enigma Main.o
+enigma: Main.o src/reflector.o src/rotor.o src/plugboard.o
+	${CC} -g Main.o src/reflector.o src/rotor.o src/plugboard.o -o enigma
 
 clean:
 	rm -rf enigma *.o
