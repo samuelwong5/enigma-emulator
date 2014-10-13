@@ -19,7 +19,9 @@ void Rotor::init(string f)
             getline(input, s, ' ');
             map[i] = atoi(s.c_str());
         }
-	}
+    } else {
+        exit(1);
+    }
 	input.close();
 	generateInverse();
 }

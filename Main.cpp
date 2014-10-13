@@ -22,6 +22,7 @@ int main(int argc, char **argv)
   for(string line; getline(cin, line);){
       for(char& c : line){
           int input = (int) c - 'A';
+          if(input<0 || input>25){ exit(1); }
           encrypt(input, rf, rotors, pb, rotcount);
       }
       cout << "\n";

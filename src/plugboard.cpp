@@ -23,7 +23,9 @@ Plugboard::Plugboard(string f)
             map[x] = y;
             map[y] = x;
         }
-	}
+    } else{
+        exit(1);
+    }
     input.close();
 }
 
