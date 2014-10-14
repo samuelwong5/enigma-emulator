@@ -6,23 +6,24 @@
 using namespace std;
 
 Rotor::Rotor(){
-    rotatecount = 0;
+    rotatecount = 0;                                   // Counts number of rotations
 }
 
 void Rotor::init(string f)
 {
     string s;
 	ifstream input(f.c_str());
-    map = new int[26]; map_inv = new int[26];
+    map = new int[26]; map_inv = new int[26];          // Initializing mapping and its inverse
 	if (input.is_open()){
-        for (int i = 0; i < 26; i++){
+        for (int i = 0; i < 26; i++){                  // Getting initial map
             getline(input, s, ' ');
             map[i] = atoi(s.c_str());
         }
-        for (int i = 0; i < 25; i++){
+        for (int i = 0; i < 25; i++){                  // Checks mapping is correct (bijective)
             for (int j = 0; j < 25; j++){
                 if(map[i]==map[j]&&i!=j){
-                    cout << "ERROR: Mapping both " << i << " and " << j << " to " << map[i] << "\n";
+                    cout << "ERROR: Mapping both " << i << 
+						" and " << j << " to " << map[i] << "\n";
                 }
             }
         }
@@ -33,17 +34,17 @@ void Rotor::init(string f)
 	generateInverse();
 }
 
-int Rotor::get(int x)
+int Rotor::get(int x)                                  // Get mapping
 {
 	return map[x];
 }
 
-int Rotor::inv_get(int x)
+int Rotor::inv_get(int x)                              // Get inverse mapping
 {
 	return map_inv[x];
 }
-
-bool Rotor::rotate(void)
+ 
+bool Rotor::rotate(void)                               // Rotate rotor
 {
     rotatecount++;
     int hold = map[0] - 1;
@@ -53,9 +54,9 @@ bool Rotor::rotate(void)
         if(map[i]<0){ map[i] += 26; }
 	}
     map[25] = hold;
-    for (int i = 0; i < 26; i++){
+    for (int i = 0; i < 26; i++){                      // Checks mapping is correct
         for (int j = 0; j < 26; j++){
-            if(map[i]==map[j]&&i!=j){
+            if(map[i]==map[j]&&i!=j){                  
                 cout << "\nERROR: Mapping both " << i << " and "
                      << j << " to " << map[i] << "\n";
             }
@@ -75,7 +76,7 @@ void Rotor::generateInverse(void)
 		map_inv[map[i]] = i;
 	}
     for (int i = 0; i<26; i++){
-        if(map_inv[map[i]]!=i){
+        if(map_inv[map[i]]!=i){                        // Checks map_inv is inverse of map
             cout << "\nERROR: Failed to generate correct inverse\nMapping "
                  << i << " to " << map[i] << " and " << map_inv[map[i]]
                  << " to " << i << "\n";
@@ -86,7 +87,7 @@ void Rotor::generateInverse(void)
     }
 }
 
-void Rotor::printmap(int* map){
+void Rotor::printmap(int* map){                        // Prints mapping
     for(int i = 0 ; i < 26 ; i++){
         cout << i << "->" << map[i] << "\n";
     }
