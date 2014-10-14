@@ -15,13 +15,12 @@ Plugboard::Plugboard(string f)
     }
 	ifstream input(f.c_str());
 	if (input.is_open()){
-        for (int i = 0; i < 26; i++){
-            getline(input, s, ' ');
+        while(getline(input, s, ' ')){
             x = atoi(s.c_str());
             getline(input, s, ' ');
             y = atoi(s.c_str());
             map[x] = y;
-            map[y] = x;
+			map[y] = x;
         }
     } else{
         exit(1);
