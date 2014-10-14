@@ -22,11 +22,16 @@ int main(int argc, char **argv)
   Plugboard *pb = new Plugboard(argv[argc-1]);
   for(string line; getline(cin, line);){
       for(char& c : line){
-          int input = (int) c - 'A';
-          if(input<0 || input>25){ exit(1); }
-          encrypt(input, rf, rotors, pb, rotcount);
-          int i = 0;
-          while(i<rotcount&&rotors[i].rotate()){ i++; }
+		  if (c == ' ' || c == '\t' || c == '\n') { 
+			  cout << c; 
+		  }
+		  else {
+			  int input = (int)c - 'A';
+			  if (input<0 || input>25){ exit(1); }
+			  encrypt(input, rf, rotors, pb, rotcount);
+			  int i = 0;
+			  while (i < rotcount&&rotors[i].rotate()){ i++; }
+		  }
       }
       cout << "\n";
   }
