@@ -22,17 +22,13 @@ int main(int argc, char **argv)
   Plugboard *pb = new Plugboard(argv[argc-1]);          // Initializing plugboard
   for(string line; getline(ws(cin), line);){
       for(char& c : line){
-		  if (c == ' ' || c == '\t' || c == '\n') { 
-			  // Do nothing as whitespace is ignored
-		  } else {
 			  int input = (int)c - 'A';
 			  if (input<0 || input>25){ exit(1); }      // Exit if not A-Z
 			  encrypt(input, rf, rotors, pb, rotcount);
 			  int i = 0;
 			  while (i < rotcount&&rotors[i].rotate()){ // Rotoate rotors
 				  i++; 
-			  } 
-		  }
+			  }
       }
       cout << "\n";
   }
