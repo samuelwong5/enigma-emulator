@@ -20,7 +20,7 @@ int main(int argc, char **argv)
       rotors[i-1].init(argv[i]);                        // Initializing rotors
   }
   Plugboard *pb = new Plugboard(argv[argc-1]);          // Initializing plugboard
-  for(string line; getline(cin, line);){
+  for(string line; getline(ws(cin), line);){
       for(char& c : line){
 		  if (c == ' ' || c == '\t' || c == '\n') { 
 			  // Do nothing as whitespace is ignored
