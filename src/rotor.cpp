@@ -7,58 +7,55 @@ using namespace std;
 
 Rotor::Rotor(string f)
 {
-    rotatecount = 0;                                   // Counts number of rotations
-    init(f);
-}
-
-void Rotor::init(string f)
-{
+    rotatecount_ = 0;                                   // Counts number of rotations
     string s;
-	ifstream input(f.c_str());
-    map = new int[26]; map_inv = new int[26];          // Initializing mapping and its inverse
-	if (input.is_open()){
-        for (int i = 0; i < 26; i++){                  // Getting initial map
+    ifstream input(f.c_str());
+    map_ = new int[26]; mapInv_ = new int[26];          // Initializing mapping and its inverse
+    if (input.is_open()){
+        for (int i = 0; i < 26; i++){                   // Getting initial map
             getline(input, s, ' ');
-            map[i] = atoi(s.c_str());
+            map_[i] = atoi(s.c_str());
         }
-        for (int i = 0; i < 25; i++){                  // Checks mapping is correct (bijective)
+        for (int i = 0; i < 25; i++){                   // Checks mapping is correct (bijective)
             for (int j = 0; j < 25; j++){
-                if(map[i]==map[j]&&i!=j){
-                    cout << "ERROR: Mapping both " << i << 
-						" and " << j << " to " << map[i] << "\n";
+                if(map_[i]==map_[j]&&i!=j){
+                    cout << "ERROR: Mapping both " << i <<
+                        " and " << j << " to " << map_[i] << "\n";
+                    exit(1);
                 }
             }
         }
     } else {
         exit(1);
     }
-	input.close();
-	generateInverse();
+    input.close();
+    generateInverse();
 }
 
-int Rotor::get(int x)                                  // Get mapping
+
+int Rotor::get(int x)                                   // Get mapping
 {
-	return map[x];
+    return map_[x];
 }
 
-int Rotor::getInverse(int x)                           // Get inverse mapping
+int Rotor::getInverse(int x)                            // Get inverse mapping
 {
-	return map_inv[x];
+    return mapInv_[x];
 }
  
-bool Rotor::rotate(void)                               // Rotate rotor
+bool Rotor::rotate(void)                                // Rotate rotor
 {
-    rotatecount++;
-    int hold = map[0] - 1;
+    rotatecount_++;
+    int hold = map_[0] - 1;
     if(hold<0){ hold += 26; }
 	for (int i = 0; i < 25; i++){
-        map[i] = map[i+1] - 1;
-        if(map[i]<0){ map[i] += 26; }
+        map_[i] = map_[i + 1] - 1;
+        if(map_[i]<0){ map_[i] += 26; }
 	}
-    map[25] = hold;
+    map_[25] = hold;
 	generateInverse();
-    if(rotatecount==26){
-        rotatecount = 0;
+    if(rotatecount_==26){
+        rotatecount_ = 0;
         return true;
     }
     return false;
@@ -67,7 +64,7 @@ bool Rotor::rotate(void)                               // Rotate rotor
 void Rotor::generateInverse(void)
 {
 	for (int i = 0; i < 26; i++){
-		map_inv[map[i]] = i;
+        mapInv_[map_[i]] = i;
 	}
 }
 
@@ -75,17 +72,17 @@ bool Rotor::checkMapping(void)
 {
     for (int i = 0; i < 26; i++){                      // Checks mapping is correct
         for (int j = 0; j < 26; j++){
-            if(map[i]==map[j]&&i!=j){
+            if(map_[i]==map_[j]&&i!=j){
                 cout << "\nERROR: Mapping both " << i << " and "
-                     << j << " to " << map[i] << "\n";
+                     << j << " to " << map_[i] << "\n";
                 return false;
             }
         }
     }
     for (int i = 0; i<26; i++){
-        if(map_inv[map[i]]!=i){                        // Checks map_inv is inverse of map
+        if(mapInv_[map_[i]]!=i){                        // Checks map_inv is inverse of map
             cout << "\nERROR: Failed to generate correct inverse\nMapping "
-                 << i << " to " << map[i] << " and " << map_inv[map[i]]
+                 << i << " to " << map_[i] << " and " << mapInv_[map_[i]]
                  << " to " << i << "\n";
             return false;
         }
@@ -96,9 +93,9 @@ bool Rotor::checkMapping(void)
 void Rotor::print(void)                                // Prints mapping
 {
     for(int i = 0 ; i < 26 ; i++){
-        cout << i << "->" << map[i] << "\n";
+        cout << i << "->" << map_[i] << "\n";
     }
     for(int i = 0 ; i < 26 ; i++){
-        cout << i << "->" << map_inv[i] << "\n";
+        cout << i << "->" << mapInv_[i] << "\n";
     }
 }

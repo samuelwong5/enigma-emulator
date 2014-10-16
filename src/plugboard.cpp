@@ -9,9 +9,9 @@ Plugboard::Plugboard(string f)
 {
     string s;
     int x,y;
-    map = new int[26];
+    map_ = new int[26];
     for (int i = 0; i < 26; i++){          // Initialize mapping
-        map[i] = i;
+        map_[i] = i;
     }
 	ifstream input(f.c_str());
 	if (input.is_open()){              
@@ -19,8 +19,8 @@ Plugboard::Plugboard(string f)
             x = atoi(s.c_str());
             getline(input, s, ' ');
             y = atoi(s.c_str());
-            map[x] = y;
-			map[y] = x;
+            map_[x] = y;
+            map_[y] = x;
         }
     } else{
         exit(1);
@@ -30,7 +30,7 @@ Plugboard::Plugboard(string f)
 
 int Plugboard::get(int x)                  // Return mapped pair
 {
-	return map[x];
+    return map_[x];
 }
 
 void Plugboard::print()
