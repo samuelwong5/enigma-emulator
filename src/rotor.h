@@ -4,11 +4,12 @@ class Rotor {
 	int *map, *map_inv;
     int rotatecount;
 public:
-    Rotor();
-    void init(string f);
+    Rotor(string f);
 	int get(int x);
-	int inv_get(int x);
+    int getInverse(int x);
     bool rotate(void);
+    bool checkMapping(void);
 	void generateInverse(void);
-    void printmap(int* map);
+    void print(void);
+    void init(string f);
 };

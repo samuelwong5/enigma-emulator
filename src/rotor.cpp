@@ -5,8 +5,10 @@
 #include "rotor.h"
 using namespace std;
 
-Rotor::Rotor(){
+Rotor::Rotor(string f)
+{
     rotatecount = 0;                                   // Counts number of rotations
+    init(f);
 }
 
 void Rotor::init(string f)
@@ -39,7 +41,7 @@ int Rotor::get(int x)                                  // Get mapping
 	return map[x];
 }
 
-int Rotor::inv_get(int x)                              // Get inverse mapping
+int Rotor::getInverse(int x)                           // Get inverse mapping
 {
 	return map_inv[x];
 }
@@ -54,14 +56,6 @@ bool Rotor::rotate(void)                               // Rotate rotor
         if(map[i]<0){ map[i] += 26; }
 	}
     map[25] = hold;
-    for (int i = 0; i < 26; i++){                      // Checks mapping is correct
-        for (int j = 0; j < 26; j++){
-            if(map[i]==map[j]&&i!=j){                  
-                cout << "\nERROR: Mapping both " << i << " and "
-                     << j << " to " << map[i] << "\n";
-            }
-        }
-    }
 	generateInverse();
     if(rotatecount==26){
         rotatecount = 0;
@@ -75,20 +69,36 @@ void Rotor::generateInverse(void)
 	for (int i = 0; i < 26; i++){
 		map_inv[map[i]] = i;
 	}
+}
+
+bool Rotor::checkMapping(void)
+{
+    for (int i = 0; i < 26; i++){                      // Checks mapping is correct
+        for (int j = 0; j < 26; j++){
+            if(map[i]==map[j]&&i!=j){
+                cout << "\nERROR: Mapping both " << i << " and "
+                     << j << " to " << map[i] << "\n";
+                return false;
+            }
+        }
+    }
     for (int i = 0; i<26; i++){
         if(map_inv[map[i]]!=i){                        // Checks map_inv is inverse of map
             cout << "\nERROR: Failed to generate correct inverse\nMapping "
                  << i << " to " << map[i] << " and " << map_inv[map[i]]
                  << " to " << i << "\n";
-            printmap(map);
-            printmap(map_inv);
-            exit(1);
+            return false;
         }
     }
+    return true;
 }
 
-void Rotor::printmap(int* map){                        // Prints mapping
+void Rotor::print(void)                                // Prints mapping
+{
     for(int i = 0 ; i < 26 ; i++){
         cout << i << "->" << map[i] << "\n";
+    }
+    for(int i = 0 ; i < 26 ; i++){
+        cout << i << "->" << map_inv[i] << "\n";
     }
 }

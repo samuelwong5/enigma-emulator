@@ -4,4 +4,5 @@ class Plugboard {
 public:
 	Plugboard(std::string f);
 	int get(int x);
+    void print();
 };

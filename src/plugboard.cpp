@@ -33,3 +33,9 @@ int Plugboard::get(int x)                  // Return mapped pair
 	return map[x];
 }
 
+void Plugboard::print()
+{
+    for(int i = 0; i < 26; i++){
+        cout << i << " -> " << get(i) << "\n";
+    }
+}
