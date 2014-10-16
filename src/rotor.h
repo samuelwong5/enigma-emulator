@@ -1,8 +1,8 @@
 #include <string>
 using namespace std;
 class Rotor {
-	int *map, *map_inv;
-    int rotatecount;
+    int *map_, *mapInv_;
+    int rotatecount_;
 public:
     Rotor(string f);
 	int get(int x);
@@ -11,5 +11,4 @@ public:
     bool checkMapping(void);
 	void generateInverse(void);
     void print(void);
-    void init(string f);
 };

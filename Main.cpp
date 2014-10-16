@@ -9,17 +9,17 @@
 
 using namespace std;
 
-void encrypt(int x, Reflector& rf, vector<Rotor>& rotors, Plugboard *pb);
+void encrypt(int input, Reflector& reflector, vector<Rotor>& rotors, Plugboard *plugboard);
 void printCharFromInt(int x);
 
 int main(int argc, char **argv)
 {
-  Reflector rf;                                                                            // Initializing reflector
+  Reflector reflector;                                                                     // Initializing reflector
   vector<Rotor> rotors;
   for(int i = 1; i < argc - 1; i++){
       rotors.push_back(Rotor(argv[i]));                                                    // Initializing rotors
   }
-  Plugboard *pb = new Plugboard(argv[argc-1]);                                             // Initializing plugboard
+  Plugboard *plugboard = new Plugboard(argv[argc-1]);                                      // Initializing plugboard
   for(string line; getline(ws(cin), line);){
       for(char& c : line){
           if (c == ' ' || c == '\t' || c == '\n' || c == '\t' || c == '\f') {
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 		  } else {
 			  int input = (int)c - 'A';
               if (input < 0 || input > 25){ exit(1); }                                     // Exit if not A-Z
-              encrypt(input, rf, rotors, pb);
+              encrypt(input, reflector, rotors, plugboard);
               for (vector<Rotor>::iterator it = rotors.begin(); it!= rotors.end(); ++it){  // Rotate
                   if(!(it->rotate())){
                       break;
@@ -38,26 +38,26 @@ int main(int argc, char **argv)
   }
 }
 
-void encrypt(int x, Reflector& rf, vector<Rotor>& rotors, Plugboard *pb)
+void encrypt(int input, Reflector& reflector, vector<Rotor>& rotors, Plugboard *plugboard)
 {
-  if(x < 0 || x > 25){
+  if(input < 0 || input > 25){
       cout << "Trying to encrypt non A-Z character\n";
       exit(1);
   }
-  int out = pb->get(x);                                                                    // First pass through plugboard
+  int output = plugboard->get(input);                                                      // First pass through plugboard
 
   for (vector<Rotor>::iterator it = rotors.begin(); it!= rotors.end(); ++it){              // Passing through all rotors
-      out = it->get(out);
+      output = it->get(output);
   }
-  out = rf.reflect(out);                                                                   // Passing through reflector
+  output = reflector.reflect(output);                                                      // Passing through reflector
   for (vector<Rotor>::reverse_iterator rit = rotors.rbegin(); rit!= rotors.rend(); ++rit){ // Passing through all inverse rotors
-      out = rit->getInverse(out);
+      output = rit->getInverse(output);
   }
-  out = pb->get(out);                                                                      // Second pass through plugboard
-  printCharFromInt(out);
+  output = plugboard->get(output);                                                         // Second pass through plugboard
+  printCharFromInt(output);
 }
 
-void printCharFromInt(int x)                                                                      // Print A-Z from 0-25
+void printCharFromInt(int x)                                                               // Print A-Z from 0-25
 {
   char output = 'A' + x;
   cout << output;

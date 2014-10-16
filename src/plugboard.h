@@ -1,6 +1,6 @@
 #include <string>
 class Plugboard {
-	int* map;
+    int* map_;
 public:
 	Plugboard(std::string f);
 	int get(int x);
