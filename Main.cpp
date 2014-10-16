@@ -22,7 +22,7 @@ int main(int argc, char **argv)
   Plugboard *pb = new Plugboard(argv[argc-1]);                                             // Initializing plugboard
   for(string line; getline(ws(cin), line);){
       for(char& c : line){
-		  if (c == ' ' || c == '\t' || c == '\n') { 
+          if (c == ' ' || c == '\t' || c == '\n' || c == '\t' || c == '\f') {
 			  // Do nothing
 		  } else {
 			  int input = (int)c - 'A';
@@ -35,7 +35,6 @@ int main(int argc, char **argv)
               }
 		  }
       }
-      cout << "\n";
   }
 }
 
