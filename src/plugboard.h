@@ -3,7 +3,7 @@
 class Plugboard {
     int* map_;
 public:
-	Plugboard(std::string f);
-	int get(int x);
+    Plugboard(std::string f);
+    int get(int x);
     void print();
 };

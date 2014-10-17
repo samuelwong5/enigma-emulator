@@ -48,12 +48,12 @@ bool Rotor::rotate(void)                                // Rotate rotor
     rotatecount_++;
     int hold = map_[0] - 1;
     if(hold<0){ hold += 26; }
-	for (int i = 0; i < 25; i++){
+    for (int i = 0; i < 25; i++){
         map_[i] = map_[i + 1] - 1;
         if(map_[i]<0){ map_[i] += 26; }
-	}
+    }
     map_[25] = hold;
-	generateInverse();
+    generateInverse();
     if(rotatecount_==26){
         rotatecount_ = 0;
         return true;
@@ -63,14 +63,14 @@ bool Rotor::rotate(void)                                // Rotate rotor
 
 void Rotor::generateInverse(void)
 {
-	for (int i = 0; i < 26; i++){
+    for (int i = 0; i < 26; i++){
         mapInv_[map_[i]] = i;
-	}
+    }
 }
 
 bool Rotor::checkMapping(void)
 {
-    for (int i = 0; i < 26; i++){                      // Checks mapping is correct
+    for (int i = 0; i < 26; i++){                       // Checks mapping is correct
         for (int j = 0; j < 26; j++){
             if(map_[i]==map_[j]&&i!=j){
                 cout << "\nERROR: Mapping both " << i << " and "
@@ -90,7 +90,7 @@ bool Rotor::checkMapping(void)
     return true;
 }
 
-void Rotor::print(void)                                // Prints mapping
+void Rotor::print(void)                                 // Prints mapping
 {
     for(int i = 0 ; i < 26 ; i++){
         cout << i << "->" << map_[i] << "\n";
