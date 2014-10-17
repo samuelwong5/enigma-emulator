@@ -6,10 +6,10 @@ class Rotor {
     int rotatecount_;
 public:
     Rotor(string f);
-	int get(int x);
+    int get(int x);
     int getInverse(int x);
     bool rotate(void);
     bool checkMapping(void);
-	void generateInverse(void);
+    void generateInverse(void);
     void print(void);
 };

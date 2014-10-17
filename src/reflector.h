@@ -1,6 +1,6 @@
 #pragma once
 class Reflector {
-  public:
-	int reflect(int x);
+public:
+    int reflect(int x);
 };
 
