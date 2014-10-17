@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include <sstream>
 #include "rotor.h"
 using namespace std;
 
@@ -13,8 +12,7 @@ Rotor::Rotor(char* c)
     map_ = new int[26]; mapInv_ = new int[26];          // Initializing mapping and its inverse
     if (input.is_open()){
         for (int i = 0; i < 26; i++){                   // Getting initial map
-            getline(input, s, ' ');
-            map_[i] = atoi(s.c_str());
+            input >> map_[i];
         }
         for (int i = 0; i < 25; i++){                   // Checks mapping is correct (bijective)
             for (int j = 0; j < 25; j++){
