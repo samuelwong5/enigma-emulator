@@ -5,7 +5,7 @@
 #include "plugboard.h"
 using namespace std;
 
-Plugboard::Plugboard(string f)
+Plugboard::Plugboard(char* c)
 {
     string s;
     int x,y;
@@ -13,7 +13,7 @@ Plugboard::Plugboard(string f)
     for (int i = 0; i < 26; i++){          // Initialize mapping
         map_[i] = i;
     }
-	ifstream input(f.c_str());
+	ifstream input(c);
 	if (input.is_open()){              
         while(getline(input, s, ' ')){     // Get mapping pairs
             x = atoi(s.c_str());

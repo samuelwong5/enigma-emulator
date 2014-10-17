@@ -1,9 +1,8 @@
 #pragma once
-#include <string>
 class Plugboard {
     int* map_;
 public:
-    Plugboard(std::string f);
+    Plugboard(char* c);
     int get(int x);
     void print();
 };

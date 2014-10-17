@@ -5,11 +5,11 @@
 #include "rotor.h"
 using namespace std;
 
-Rotor::Rotor(string f)
+Rotor::Rotor(char* c)
 {
     rotatecount_ = 0;                                   // Counts number of rotations
     string s;
-    ifstream input(f.c_str());
+    ifstream input(c);
     map_ = new int[26]; mapInv_ = new int[26];          // Initializing mapping and its inverse
     if (input.is_open()){
         for (int i = 0; i < 26; i++){                   // Getting initial map
