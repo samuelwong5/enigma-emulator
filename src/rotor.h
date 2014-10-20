@@ -1,6 +1,5 @@
 #pragma once
 
-using namespace std;
 class Rotor {
     int *map_, *mapInv_;
     int rotatecount_;
