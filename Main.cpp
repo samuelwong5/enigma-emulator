@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 
 bool isWhiteSpace(char c)
 {
-	if (c == ' ' || c == '\r' || c == "\n" || c == "\t" || c == "\f"){
+	if (c == ' ' || c == '\r' || c == '\n' || c == '\t' || c == '\f'){
 		return true;
 	} 
 	return false;
