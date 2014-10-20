@@ -18,8 +18,11 @@ Encryptor::Encryptor(int argc, char **argv)
 
 void Encryptor::encryptChar(int input)
 {
+	if (input < 0 || input > 25) {
+		cout << "ERROR: Non A-Z character input detected.";
+		exit(1);
+	}
 	int output = plugboard_->get(input);                                                         // First pass through plugboard
-
 	for (vector<Rotor>::iterator it = rotors_.begin(); it != rotors_.end(); ++it){               // Passing through all rotors
 		output = it->get(output);
 	}
